@@ -3,3 +3,4 @@
 /.claude/
 /target/
 /Cargo.lock
+/po/*.pot

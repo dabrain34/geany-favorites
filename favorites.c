@@ -116,7 +116,7 @@ static void open_path(const gchar *utf8)
 
 	if (file_missing(utf8))
 	{
-		ui_set_statusbar(TRUE, "Favorite not found: %s", utf8);
+		ui_set_statusbar(TRUE, _("Favorite not found: %s"), utf8);
 		return;
 	}
 	locale = utils_get_locale_from_utf8(utf8);
@@ -204,16 +204,16 @@ static void add_current(void)
 
 	if (!doc_is_saved(doc))
 	{
-		ui_set_statusbar(FALSE, "Favorites: save the document first.");
+		ui_set_statusbar(FALSE, _("Favorites: save the document first."));
 		return;
 	}
 	if (add_path(doc->file_name))
 	{
 		favorites_changed();
-		ui_set_statusbar(FALSE, "Added to favorites: %s", doc->file_name);
+		ui_set_statusbar(FALSE, _("Added to favorites: %s"), doc->file_name);
 	}
 	else
-		ui_set_statusbar(FALSE, "Already in favorites: %s", doc->file_name);
+		ui_set_statusbar(FALSE, _("Already in favorites: %s"), doc->file_name);
 }
 
 static void remove_current(void)
@@ -224,10 +224,10 @@ static void remove_current(void)
 	if (find_doc(doc, &iter))
 	{
 		gtk_list_store_remove(store, &iter);  /* "row-deleted" saves */
-		ui_set_statusbar(FALSE, "Removed from favorites: %s", doc->file_name);
+		ui_set_statusbar(FALSE, _("Removed from favorites: %s"), doc->file_name);
 	}
 	else
-		ui_set_statusbar(FALSE, "Current file is not a favorite.");
+		ui_set_statusbar(FALSE, _("Current file is not a favorite."));
 }
 
 static void remove_selected(void)
@@ -244,9 +244,9 @@ static void remove_selected(void)
 
 static void add_files_dialog(void)
 {
-	GtkWidget *dialog = gtk_file_chooser_dialog_new("Add Favorites",
+	GtkWidget *dialog = gtk_file_chooser_dialog_new(_("Add Favorites"),
 		GTK_WINDOW(GD->main_widgets->window), GTK_FILE_CHOOSER_ACTION_OPEN,
-		"_Cancel", GTK_RESPONSE_CANCEL, "_Add", GTK_RESPONSE_ACCEPT, NULL);
+		_("_Cancel"), GTK_RESPONSE_CANCEL, _("_Add"), GTK_RESPONSE_ACCEPT, NULL);
 	GeanyDocument *doc = document_get_current();
 
 	gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
@@ -321,15 +321,15 @@ static void rebuild_menu(void)
 
 	gtk_container_foreach(GTK_CONTAINER(menu_sub), destroy_child, NULL);
 
-	menu_append(menu_sub, "_Add Current File", G_CALLBACK(add_current));
-	menu_append(menu_sub, "_Remove Current File", G_CALLBACK(remove_current));
-	menu_append(menu_sub, "Add _Files...", G_CALLBACK(add_files_dialog));
-	menu_append(menu_sub, "Show _Sidebar Tab", G_CALLBACK(focus_favorites));
+	menu_append(menu_sub, _("_Add Current File"), G_CALLBACK(add_current));
+	menu_append(menu_sub, _("_Remove Current File"), G_CALLBACK(remove_current));
+	menu_append(menu_sub, _("Add _Files..."), G_CALLBACK(add_files_dialog));
+	menu_append(menu_sub, _("Show _Sidebar Tab"), G_CALLBACK(focus_favorites));
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu_sub), gtk_separator_menu_item_new());
 
 	valid = gtk_tree_model_get_iter_first(model, &iter);
 	if (!valid)
-		gtk_widget_set_sensitive(menu_append(menu_sub, "(no favorites)", NULL), FALSE);
+		gtk_widget_set_sensitive(menu_append(menu_sub, _("(no favorites)"), NULL), FALSE);
 
 	while (valid)
 	{
@@ -464,11 +464,11 @@ static gboolean on_tree_button_press(GtkWidget *widget, GdkEventButton *event, g
 	gtk_tree_path_free(tpath);
 
 	menu = gtk_menu_new();
-	menu_append(menu, "_Open", G_CALLBACK(on_ctx_open));
-	menu_append(menu, "Open Containing _Folder", G_CALLBACK(on_ctx_open_folder));
-	menu_append(menu, "_Copy Path", G_CALLBACK(on_ctx_copy_path));
+	menu_append(menu, _("_Open"), G_CALLBACK(on_ctx_open));
+	menu_append(menu, _("Open Containing _Folder"), G_CALLBACK(on_ctx_open_folder));
+	menu_append(menu, _("_Copy Path"), G_CALLBACK(on_ctx_copy_path));
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
-	menu_append(menu, "_Remove from Favorites", G_CALLBACK(remove_selected));
+	menu_append(menu, _("_Remove from Favorites"), G_CALLBACK(remove_selected));
 	gtk_widget_show_all(menu);
 	g_signal_connect(menu, "selection-done", G_CALLBACK(gtk_widget_destroy), NULL);
 	gtk_menu_popup_at_pointer(GTK_MENU(menu), (GdkEvent *) event);
@@ -505,11 +505,11 @@ static GtkWidget *build_sidebar_page(void)
 	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
 	gtk_toolbar_set_icon_size(GTK_TOOLBAR(toolbar), GTK_ICON_SIZE_SMALL_TOOLBAR);
 	gtk_toolbar_insert(GTK_TOOLBAR(toolbar),
-		tool_button("list-add", "Add current file", G_CALLBACK(add_current)), -1);
+		tool_button("list-add", _("Add current file"), G_CALLBACK(add_current)), -1);
 	gtk_toolbar_insert(GTK_TOOLBAR(toolbar),
-		tool_button("document-open", "Add files...", G_CALLBACK(add_files_dialog)), -1);
+		tool_button("document-open", _("Add files..."), G_CALLBACK(add_files_dialog)), -1);
 	gtk_toolbar_insert(GTK_TOOLBAR(toolbar),
-		tool_button("list-remove", "Remove selected", G_CALLBACK(remove_selected)), -1);
+		tool_button("list-remove", _("Remove selected"), G_CALLBACK(remove_selected)), -1);
 
 	tree = gtk_tree_view_new_with_model(GTK_TREE_MODEL(store));
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(tree), FALSE);
@@ -553,7 +553,7 @@ static void on_update_editor_menu(GObject *obj, const gchar *word, gint pos,
 	gboolean favorite = find_doc(doc, NULL);
 
 	gtk_menu_item_set_label(GTK_MENU_ITEM(editor_item), favorite ?
-		"Remove from _Favorites" : "Add to _Favorites");
+		_("Remove from _Favorites") : _("Add to _Favorites"));
 	gtk_widget_set_sensitive(editor_item, favorite || doc_is_saved(doc));
 }
 
@@ -586,16 +586,16 @@ static gboolean fav_init(GeanyPlugin *plugin, gpointer pdata)
 
 	page = build_sidebar_page();
 	gtk_notebook_append_page(GTK_NOTEBOOK(GD->main_widgets->sidebar_notebook),
-		page, gtk_label_new("Favorites"));
+		page, gtk_label_new(_("Favorites")));
 
-	menu_root = gtk_menu_item_new_with_mnemonic("_Favorites");
+	menu_root = gtk_menu_item_new_with_mnemonic(_("_Favorites"));
 	menu_sub = gtk_menu_new();
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM(menu_root), menu_sub);
 	gtk_container_add(GTK_CONTAINER(GD->main_widgets->tools_menu), menu_root);
 	gtk_widget_show(menu_root);
 	rebuild_menu();
 
-	editor_item = menu_append(GD->main_widgets->editor_menu, "Add to _Favorites",
+	editor_item = menu_append(GD->main_widgets->editor_menu, _("Add to _Favorites"),
 		G_CALLBACK(toggle_current));
 	gtk_widget_show(editor_item);
 	plugin_signal_connect(plugin, NULL, "update-editor-menu", FALSE,
@@ -603,11 +603,11 @@ static gboolean fav_init(GeanyPlugin *plugin, gpointer pdata)
 
 	group = plugin_set_key_group(plugin, "favorites", KB_COUNT, NULL);
 	keybindings_set_item(group, KB_ADD_CURRENT, on_keybinding, 0, 0,
-		"add_current", "Add current file to favorites", NULL);
+		"add_current", _("Add current file to favorites"), NULL);
 	keybindings_set_item(group, KB_REMOVE_CURRENT, on_keybinding, 0, 0,
-		"remove_current", "Remove current file from favorites", NULL);
+		"remove_current", _("Remove current file from favorites"), NULL);
 	keybindings_set_item(group, KB_FOCUS, on_keybinding, 0, 0,
-		"focus", "Show favorites sidebar tab", NULL);
+		"focus", _("Show favorites sidebar tab"), NULL);
 
 	return TRUE;
 }
@@ -630,8 +630,12 @@ static void fav_cleanup(GeanyPlugin *plugin, gpointer pdata)
 G_MODULE_EXPORT
 void geany_load_module(GeanyPlugin *plugin)
 {
-	plugin->info->name = "Favorites";
-	plugin->info->description = "Keep a list of favorite files in the sidebar and Tools menu";
+#ifdef LOCALEDIR
+	main_locale_init(LOCALEDIR, GETTEXT_PACKAGE);
+#endif
+	plugin->info->name = _("Favorites");
+	plugin->info->description =
+		_("Keep a list of favorite files in the sidebar and Tools menu");
 	plugin->info->version = "0.1";
 	plugin->info->author = "Stephane Cerveau <scerveau@gmail.com>";
 

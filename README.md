@@ -60,10 +60,11 @@ sudo meson install -C build
 
 ### Per user (no root needed)
 
-Geany also loads plugins from `~/.config/geany/plugins`:
+Geany also loads plugins from `~/.config/geany/plugins`. The prefix only
+decides where translations go (`~/.local/share/locale`):
 
 ```sh
-meson setup build -Dplugindir="$HOME/.config/geany/plugins"
+meson setup build --prefix="$HOME/.local" -Dplugindir="$HOME/.config/geany/plugins"
 meson compile -C build
 meson install -C build
 ```
@@ -89,7 +90,26 @@ A plain `Makefile` is also provided for a quick per-user build without Meson:
 
 ```sh
 make
-make install      # copies favorites.so to ~/.config/geany/plugins
+make install      # copies favorites.so to ~/.config/geany/plugins (untranslated)
+```
+
+## Translations
+
+Strings are translated with gettext (Meson builds only). To add a language,
+e.g. French:
+
+```sh
+meson compile -C build geany-favorites-pot      # refresh po/geany-favorites.pot
+msginit -i po/geany-favorites.pot -o po/fr.po -l fr
+echo fr >> po/LINGUAS
+```
+
+Translate `po/fr.po`, then reconfigure (Meson reads `LINGUAS` at setup time)
+and reinstall:
+
+```sh
+meson setup --reconfigure build
+meson install -C build
 ```
 
 ## License

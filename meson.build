@@ -5,7 +5,14 @@ project('geany-favorites', 'c',
   default_options : ['warning_level=2', 'buildtype=debugoptimized'],
 )
 
-add_project_arguments('-Wno-unused-parameter', language : 'c')
+gettext_package = meson.project_name()
+
+add_project_arguments(
+  '-Wno-unused-parameter',
+  '-DGETTEXT_PACKAGE="@0@"'.format(gettext_package),
+  '-DLOCALEDIR="@0@"'.format(get_option('prefix') / get_option('localedir')),
+  language : 'c',
+)
 
 geany_dep = dependency('geany', version : '>= 1.38')
 # gtk_menu_popup_at_pointer()
@@ -23,3 +30,5 @@ shared_module('favorites', 'favorites.c',
   install : true,
   install_dir : plugindir,
 )
+
+subdir('po')
