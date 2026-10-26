@@ -7,7 +7,9 @@ project('geany-favorites', 'c',
 
 add_project_arguments('-Wno-unused-parameter', language : 'c')
 
-geany_dep = dependency('geany', version : '>= 1.26')
+geany_dep = dependency('geany', version : '>= 1.38')
+# gtk_menu_popup_at_pointer()
+gtk_dep = dependency('gtk+-3.0', version : '>= 3.22')
 
 plugindir = get_option('plugindir')
 if plugindir == ''
@@ -17,7 +19,7 @@ endif
 
 shared_module('favorites', 'favorites.c',
   name_prefix : '',
-  dependencies : geany_dep,
+  dependencies : [geany_dep, gtk_dep],
   install : true,
   install_dir : plugindir,
 )

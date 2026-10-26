@@ -14,7 +14,7 @@ A [Geany](https://www.geany.org/) plugin to keep a list of favorite files at han
 
 The list is stored in `~/.config/geany/plugins/favorites/favorites.conf`.
 
-Requires Geany ≥ 1.26 (tested with 2.0).
+Requires Geany ≥ 1.38 built with GTK ≥ 3.22 (tested with 2.0).
 
 ## Dependencies
 

@@ -1,5 +1,5 @@
 /*
- * favorites.c - Favorite files plugin for Geany (>= 1.26, tested against 2.0)
+ * favorites.c - Favorite files plugin for Geany (>= 1.38, tested against 2.0)
  *
  * - "Favorites" tab in the sidebar (click/Enter opens, drag to reorder,
  *   Delete removes, right-click for a context menu)
