@@ -1,0 +1,139 @@
+# Spanish translations for geany-favorites package.
+# Copyright (C) 2026 Stephane Cerveau
+# This file is distributed under the same license as the geany-favorites package.
+# Stephane Cerveau <scerveau@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: geany-favorites 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-26 18:41+0100\n"
+"PO-Revision-Date: 2026-10-26 18:41+0100\n"
+"Last-Translator: Stephane Cerveau <scerveau@gmail.com>\n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: favorites.c:119
+#, c-format
+msgid "Favorite not found: %s"
+msgstr "Favorito no encontrado: %s"
+
+#: favorites.c:207
+msgid "Favorites: save the document first."
+msgstr "Favoritos: guarde primero el documento."
+
+#: favorites.c:213
+#, c-format
+msgid "Added to favorites: %s"
+msgstr "Añadido a favoritos: %s"
+
+#: favorites.c:216
+#, c-format
+msgid "Already in favorites: %s"
+msgstr "Ya está en favoritos: %s"
+
+#. "row-deleted" saves
+#: favorites.c:227
+#, c-format
+msgid "Removed from favorites: %s"
+msgstr "Quitado de favoritos: %s"
+
+#: favorites.c:230
+msgid "Current file is not a favorite."
+msgstr "El archivo actual no es un favorito."
+
+#: favorites.c:247
+msgid "Add Favorites"
+msgstr "Añadir favoritos"
+
+#: favorites.c:249
+msgid "_Cancel"
+msgstr "_Cancelar"
+
+#: favorites.c:249
+msgid "_Add"
+msgstr "_Añadir"
+
+#: favorites.c:324
+msgid "_Add Current File"
+msgstr "_Añadir el archivo actual"
+
+#: favorites.c:325
+msgid "_Remove Current File"
+msgstr "_Quitar el archivo actual"
+
+#: favorites.c:326
+msgid "Add _Files..."
+msgstr "Añadir a_rchivos..."
+
+#: favorites.c:327
+msgid "Show _Sidebar Tab"
+msgstr "Mostrar la _pestaña de la barra lateral"
+
+#: favorites.c:332
+msgid "(no favorites)"
+msgstr "(sin favoritos)"
+
+#: favorites.c:467
+msgid "_Open"
+msgstr "_Abrir"
+
+#: favorites.c:468
+msgid "Open Containing _Folder"
+msgstr "Abrir la _carpeta contenedora"
+
+#: favorites.c:469
+msgid "_Copy Path"
+msgstr "Copiar la _ruta"
+
+#: favorites.c:471
+msgid "_Remove from Favorites"
+msgstr "_Quitar de favoritos"
+
+#: favorites.c:508
+msgid "Add current file"
+msgstr "Añadir el archivo actual"
+
+#: favorites.c:510
+msgid "Add files..."
+msgstr "Añadir archivos..."
+
+#: favorites.c:512
+msgid "Remove selected"
+msgstr "Quitar la selección"
+
+#: favorites.c:556
+msgid "Remove from _Favorites"
+msgstr "Quitar de _favoritos"
+
+#: favorites.c:556 favorites.c:598
+msgid "Add to _Favorites"
+msgstr "Añadir a _favoritos"
+
+#: favorites.c:589 favorites.c:636
+msgid "Favorites"
+msgstr "Favoritos"
+
+#: favorites.c:591
+msgid "_Favorites"
+msgstr "_Favoritos"
+
+#: favorites.c:606
+msgid "Add current file to favorites"
+msgstr "Añadir el archivo actual a favoritos"
+
+#: favorites.c:608
+msgid "Remove current file from favorites"
+msgstr "Quitar el archivo actual de favoritos"
+
+#: favorites.c:610
+msgid "Show favorites sidebar tab"
+msgstr "Mostrar la pestaña Favoritos de la barra lateral"
+
+#: favorites.c:638
+msgid "Keep a list of favorite files in the sidebar and Tools menu"
+msgstr "Mantiene una lista de archivos favoritos en la barra lateral y el menú Herramientas"
